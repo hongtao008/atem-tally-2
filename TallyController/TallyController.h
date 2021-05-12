@@ -1,4 +1,8 @@
+#ifndef TALLYCONTROLLER
+#define TALLYCONTROLLER
+
 #include <Arduino.h>
+#include <EEPROM.h>
 
 #include <Adafruit_NeoPixel.h>
 #include <ATEMmin.h>
@@ -9,13 +13,15 @@
 #include <Wire.h>
 
 byte mac[] = { 0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x04 };
-byte ip[] = { 172, 21, 1, 241 };
-IPAddress switcherIp(172, 21, 1, 250);
 
-#define REMOTE_CAMERA       5   // Which camera to assign the remote tally light to.
 #define LED_COUNT           2   // 1 for operator, 1 for talent
 int numberOfTallyLights = 8;    // Sane default value (number for ATEM Television Studio)
+int remoteCameraNumber = 1;     // Which camera to assign the remote tally light to.
 #define MAX_TALLY_LIGHTS    12  // Maximum number of tally lights the tally controller shield supports.
+
+// Used for configuration via serial.
+const byte numChars = 16;
+char receivedChars[numChars]; // an array to store the received data
 
 // Uno test unit assignments
 //#define NUMBER_OF_TALLY_LIGHTS  4
@@ -41,3 +47,5 @@ int numberOfTallyLights = 8;    // Sane default value (number for ATEM Televisio
 #define XBEE_In             11
 #define XBEE_Out            12
 #define STATUS_NEOPIXEL            13
+
+#endif
